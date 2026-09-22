@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio Admin | Messages</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <style>
+      body {
+        padding: 40px 0 60px;
+      }
+      .admin-shell {
+        width: min(1100px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+      .admin-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 28px;
+      }
+      .admin-title {
+        font-size: clamp(2rem, 5vw, 3rem);
+        margin: 0;
+        letter-spacing: -0.05em;
+      }
+      .admin-actions {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .messages-table {
+        width: 100%;
+        border-collapse: collapse;
+        overflow: hidden;
+        border-radius: 18px;
+        border: 1px solid var(--border);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+      }
+      .messages-table th,
+      .messages-table td {
+        border-bottom: 1px solid var(--border);
+        padding: 16px 18px;
+        text-align: left;
+        vertical-align: top;
+      }
+      .messages-table th {
+        background: rgba(110, 168, 254, 0.08);
+      }
+      .empty-state {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 30px;
+        color: var(--muted);
+      }
+      .flash-stack {
+        margin-bottom: 18px;
+      }
+      .flash {
+        margin-top: 0;
+      }
+      @media (max-width: 640px) {
+        .admin-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .messages-table {
+          display: block;
+          overflow-x: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="admin-shell">
+      <div class="admin-header">
+        <div>
+          <p class="eyebrow">Admin</p>
+          <h1 class="admin-title">Contact Messages</h1>
+        </div>
+        <div class="admin-actions">
+          <a class="button button-secondary" href="{{ url_for('home') }}">Portfolio</a>
+          <a class="button button-primary" href="{{ url_for('clear_messages') }}">Clear Log</a>
+        </div>
+      </div>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="flash-stack">
+            {% for category, message in messages %}
+              <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      {% if messages %}
+      <table class="messages-table">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Subject</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for message in messages %}
+          <tr>
+            <td>{{ message.timestamp }}</td>
+            <td>{{ message.name }}</td>
+            <td>{{ message.email }}</td>
+            <td>{{ message.subject }}</td>
+            <td>{{ message.message }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="empty-state">
+        No contact messages yet.
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>

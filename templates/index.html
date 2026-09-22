@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Portfolio of Vikas Marothia, a Software Development Engineer focused on backend systems, APIs, data pipelines, and cloud integrations."
+    />
+    <title>Vikas Marothia | Software Development Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/premium.css') }}" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="topbar">
+        <div class="container nav-wrapper">
+          <a href="#home" class="brand">Vikas<span>Marothia</span></a>
+          <nav class="nav" aria-label="Main navigation">
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact</a>
+          </nav>
+          <div class="nav-actions">
+            <button class="theme-toggle" type="button" aria-label="Toggle dark mode">☀️</button>
+            <a class="button button-primary" href="{{ url_for('resume_download') }}" target="_blank" rel="noopener noreferrer">Download Resume</a>
+          </div>
+        </div>
+      </header>
+
+      <main id="home">
+        <section class="hero section">
+          <div class="container hero-grid">
+            <div class="hero-copy">
+              <p class="eyebrow">Software Development Engineer</p>
+              <h1>Building reliable backend systems that power modern businesses.</h1>
+              <p class="lead">
+                I am {{ profile.name }}, a backend-focused engineer with 2+ years of hands-on experience delivering scalable APIs, data pipelines, and enterprise integrations for SaaS products.
+              </p>
+              <div class="cta-row">
+                <a class="button button-primary" href="#contact">Hire Me</a>
+                <a class="button button-secondary" href="{{ url_for('resume_download') }}" target="_blank" rel="noopener noreferrer">View Resume</a>
+              </div>
+              <div class="tech-pills" aria-label="Core technologies">
+                <span>Python</span>
+                <span>FastAPI</span>
+                <span>Flask</span>
+                <span>AWS</span>
+                <span>PostgreSQL</span>
+                <span>MongoDB</span>
+              </div>
+              <ul class="mini-stats" aria-label="Key metrics">
+                <li><strong>2+</strong><span>Years Experience</span></li>
+                <li><strong>5</strong><span>Enterprise Integrations</span></li>
+                <li><strong>99.5%+</strong><span>Uptime</span></li>
+              </ul>
+            </div>
+            <div class="hero-card">
+              <div class="profile-badge">Available for backend engineering roles</div>
+              <div class="avatar-wrap">
+                <div class="avatar">VM</div>
+              </div>
+              <div class="card-grid">
+                <div>
+                  <span class="label">Location</span>
+                  <strong>{{ profile.location }}</strong>
+                </div>
+                <div>
+                  <span class="label">Email</span>
+                  <strong>{{ profile.email }}</strong>
+                </div>
+                <div>
+                  <span class="label">Phone</span>
+                  <strong>{{ profile.phone }}</strong>
+                </div>
+                <div>
+                  <span class="label">GitHub</span>
+                  <a href="{{ profile.github }}" target="_blank" rel="noopener noreferrer">github.com/vikas010203</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="about" class="section section-alt">
+          <div class="container narrow">
+            <div class="section-heading">
+              <p class="eyebrow">About me</p>
+              <h2>Backend engineer with a product mindset.</h2>
+            </div>
+            <p class="about-copy">
+              {{ profile.summary }}
+            </p>
+          </div>
+        </section>
+
+        <section id="value" class="section section-alt">
+          <div class="container">
+            <div class="section-heading">
+              <p class="eyebrow">Why hire me</p>
+              <h2>Value I bring to product and engineering teams</h2>
+            </div>
+            <div class="value-grid">
+              <article class="value-card">
+                <div class="value-icon">01</div>
+                <h3>Backend Architecture</h3>
+                <p>Designs scalable APIs and service flows that balance reliability, performance, and clean integration boundaries.</p>
+              </article>
+              <article class="value-card">
+                <div class="value-icon">02</div>
+                <h3>Data & Automation</h3>
+                <p>Builds ETL pipelines and reporting workflows that remove manual work and improve operational visibility.</p>
+              </article>
+              <article class="value-card">
+                <div class="value-icon">03</div>
+                <h3>Production Ownership</h3>
+                <p>Leads incident analysis and system improvements to improve uptime, stabilize customer experience, and reduce toil.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="experience" class="section">
+          <div class="container">
+            <div class="section-heading">
+              <p class="eyebrow">Experience</p>
+              <h2>Career highlights</h2>
+            </div>
+            <div class="timeline">
+              {% for item in experience %}
+              <article class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <div class="role-head">
+                    <div>
+                      <h3>{{ item.role }}</h3>
+                      <p>{{ item.company }}</p>
+                    </div>
+                    <span>{{ item.period }}</span>
+                  </div>
+                  <p class="highlight">{{ item.highlight }}</p>
+                  <ul>
+                    {% for point in item.points %}
+                    <li>{{ point }}</li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </article>
+              {% endfor %}
+            </div>
+          </div>
+        </section>
+
+        <section id="projects" class="section section-alt">
+          <div class="container">
+            <div class="section-heading">
+              <p class="eyebrow">Projects</p>
+              <h2>Focused solutions and product impact</h2>
+            </div>
+            <div class="project-grid">
+              {% for project in projects %}
+              <article class="project-card">
+                <div class="project-header">
+                  <h3>{{ project.name }}</h3>
+                </div>
+                <p>{{ project.description }}</p>
+                <div class="chip-list">
+                  {% for tag in project.stack %}
+                  <span>{{ tag }}</span>
+                  {% endfor %}
+                </div>
+                <ul>
+                  {% for detail in project.details %}
+                  <li>{{ detail }}</li>
+                  {% endfor %}
+                </ul>
+              </article>
+              {% endfor %}
+            </div>
+          </div>
+        </section>
+
+        <section id="skills" class="section">
+          <div class="container">
+            <div class="section-heading">
+              <p class="eyebrow">Skills</p>
+              <h2>Technical strengths</h2>
+            </div>
+            <div class="skill-grid">
+              {% for key, values in skills.items() %}
+              <div class="skill-card">
+                <h3>{{ key }}</h3>
+                <div class="chip-list">
+                  {% for item in values %}
+                  <span>{{ item }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </section>
+
+        <section id="education" class="section section-alt">
+          <div class="container narrow">
+            <div class="section-heading">
+              <p class="eyebrow">Education</p>
+              <h2>Academic background</h2>
+            </div>
+            {% for item in education %}
+            <div class="edu-card">
+              <div>
+                <h3>{{ item.degree }}</h3>
+                <p>{{ item.school }}</p>
+              </div>
+              <div class="edu-meta">
+                <span>{{ item.period }}</span>
+                <strong>{{ item.meta }}</strong>
+              </div>
+            </div>
+            {% endfor %}
+
+            <div class="certifications">
+              <h3>Certifications</h3>
+              <ul>
+                {% for cert in certifications %}
+                <li>{{ cert }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" class="section contact-section">
+          <div class="container contact-grid">
+            <div class="contact-copy">
+              <p class="eyebrow">Contact</p>
+              <h2>Let’s build something impactful.</h2>
+              <p>
+                I’m open to backend engineering, SaaS platform, API, and data engineering opportunities.
+              </p>
+              <ul class="contact-list">
+                <li><span>Email</span><a href="mailto:{{ profile.email }}">{{ profile.email }}</a></li>
+                <li><span>Phone</span><a href="tel:{{ profile.phone }}">{{ profile.phone }}</a></li>
+                <li><span>Location</span><span>{{ profile.location }}</span></li>
+                <li><span>LinkedIn</span><a href="{{ profile.linkedin }}" target="_blank" rel="noopener noreferrer">linkedin.com/in/vikas-marothia</a></li>
+              </ul>
+            </div>
+
+            <form class="contact-form" method="post" action="{{ url_for('contact') }}">
+              <div class="field-row">
+                <label>
+                  <span>Name</span>
+                  <input type="text" name="name" placeholder="Your name" required />
+                </label>
+                <label>
+                  <span>Email</span>
+                  <input type="email" name="email" placeholder="Your email" required />
+                </label>
+              </div>
+              <label>
+                <span>Subject</span>
+                <input type="text" name="subject" placeholder="Project / opportunity / inquiry" required />
+              </label>
+              <label>
+                <span>Message</span>
+                <textarea name="message" rows="6" placeholder="Tell me about your project or role..." required></textarea>
+              </label>
+
+              {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                  <div class="flash-stack">
+                    {% for category, message in messages %}
+                      <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              {% endwith %}
+
+              <button class="button button-primary" type="submit">Send Message</button>
+            </form>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="container footer-row">
+          <p>© <span id="year"></span> Vikas Marothia</p>
+          <a href="#home">Back to top</a>
+        </div>
+      </footer>
+    </div>
+
+    <div class="float-socials" aria-label="Social media shortcuts">
+      <a class="social-pill primary" href="{{ profile.github }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GH</a>
+      <a class="social-pill" href="{{ profile.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
+      <a class="social-pill" href="mailto:{{ profile.email }}" aria-label="Email">✉</a>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/premium.js') }}"></script>
+  </body>
+</html>
